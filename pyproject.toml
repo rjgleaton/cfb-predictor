@@ -1,0 +1,20 @@
+[project]
+name = "cfb_predictor"
+version = "0.1.0"
+description = "Tool kit for collecting and predicting college football data"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.28.1",
+    "pandas>=2.0.3",
+    "PyYAML>=6.0",
+    "tqdm>=4.65.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+cfb-predictor = "cfb_predictor.__main__:main"
+

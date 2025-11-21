@@ -1,0 +1,16 @@
+# Env files
+.env
+
+# Data files
+*.json
+*.csv
+!devcontainer.json
+
+# Python cache files
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Test files and logs
+*testing*
+*.log

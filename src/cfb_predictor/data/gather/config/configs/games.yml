@@ -1,0 +1,5 @@
+path: "games/"
+params:
+  year:
+    - 2024
+    - 2023

@@ -1,0 +1,18 @@
+{
+    "image": "cfb_predictor:latest", 
+    "runArgs": [
+        "--gpus", "all",
+        "--shm-size=16g",
+        "--ulimit",
+        "memlock=-1",
+        "--ulimit",
+        "stack=67108864"
+    ],
+    "extensions": [
+        "ms-toolsai.jupyter",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "eamodio.gitlens"
+    ],
+    "postCreateCommand": "pip install -e ."
+} 
