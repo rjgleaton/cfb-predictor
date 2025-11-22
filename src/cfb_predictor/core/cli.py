@@ -1,10 +1,16 @@
 import argparse
 from cfb_predictor.data import RequestController
-from typing import Optional
+from typing import Optional, Tuple
 
-def initialize_parsers() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CFB Predictor CLI")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
+def initialize_parsers() -> Tuple[argparse.ArgumentParser, argparse._SubParsersAction]:
+    # Create parent parser for shared arguments
+    parent_parser = argparse.ArgumentParser(add_help=False)
+    parent_parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
+
+    parser = argparse.ArgumentParser(
+        description="CFB Predictor CLI", 
+        parents=[parent_parser]
+    )
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
     return parser, subparsers

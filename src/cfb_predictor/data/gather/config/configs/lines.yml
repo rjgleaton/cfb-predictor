@@ -1,0 +1,6 @@
+configs:
+  - path: "lines/"
+    params:
+      year:
+        - 2024
+        - 2023

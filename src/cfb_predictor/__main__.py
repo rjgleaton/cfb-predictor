@@ -7,7 +7,6 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-import argparse
 from cfb_predictor import cli
 from cfb_predictor.data import RequestController
 
@@ -18,7 +17,7 @@ def main():
     args = parser.parse_args()
 
     if args.verbose:
-        logging.basicConfig(level=logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
 
     if hasattr(args, "func"):
         args.func(args)

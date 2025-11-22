@@ -1,3 +1,3 @@
-from .config.model import RequestController
+from .config.controller import RequestController
 
 __all__ = ["RequestController"]
