@@ -13,6 +13,7 @@ from cfb_predictor.data import RequestController
 def main():
     parser, subparsers = cli.initialize_parsers()
     cli.initialize_data_gather(subparsers)
+    cli.initialize_data_processor(subparsers)
 
     args = parser.parse_args()
 
