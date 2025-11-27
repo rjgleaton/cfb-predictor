@@ -86,9 +86,9 @@ class RequestController:
                         _ = self._process_single_request(advanced_stat_request, overwrite, included_data=advanced_stat_request.params)
                     pbar.update(1)
         
-        self._report_info()
+        self.report_info()
         
-    def _report_info(self):
+    def report_info(self):
         url = urljoin(self._base_url, "info/")
         response = requests.get(url, headers=self._headers)
         logger.info(f"Info - {response.text}") 

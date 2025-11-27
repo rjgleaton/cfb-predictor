@@ -45,16 +45,15 @@ def initialize_parsers() -> Tuple[argparse.ArgumentParser, argparse._SubParsersA
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
     return parser, subparsers
 
+def initialize_info(subparsers: argparse.ArgumentParser) -> None:
+    info_parser = subparsers.add_parser("info", help="Retrieve API information")
+    info_parser = _add_api_key_arg(info_parser)
+    info_parser.set_defaults(func=handle_info)
+
 def initialize_data_gather(subparsers: argparse.ArgumentParser) -> None:
     gather_parser = subparsers.add_parser("gather", help="Data gathering options")
 
-    gather_parser.add_argument(
-        "--api_key",
-        type=str,
-        required=False,
-        default=None,
-        help="API key for data retrieval"
-    )
+    gather_parser = _add_api_key_arg(gather_parser)
     gather_parser.add_argument(
         "-c",
         "--config",
@@ -119,6 +118,12 @@ def initialize_data_processor(subparsers: argparse.ArgumentParser) -> None:
 #endregion
 
 #region CLI Handlers
+def handle_info(args: argparse.Namespace) -> None:
+    controller = RequestController(
+        api_key=args.api_key
+    )
+    controller.report_info()
+
 def handle_data_gather(args: argparse.Namespace) -> None:
     controller = RequestController(
         api_key=args.api_key,
@@ -142,4 +147,17 @@ def handle_data_process(args: argparse.Namespace) -> None:
     }
 
     process_function(**kwargs)
-    
+
+#endregion
+
+#region Helper Functions
+def _add_api_key_arg(sub_parser):
+    sub_parser.add_argument(
+        "--api_key",
+        type=str,
+        required=False,
+        default=None,
+        help="API key for data retrieval"
+    )
+    return sub_parser
+#endregion
