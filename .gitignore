@@ -13,4 +13,5 @@ __pycache__/
 
 # Test files and logs
 *testing*
+*.ipynb
 *.log

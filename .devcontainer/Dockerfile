@@ -16,3 +16,4 @@ RUN pip install tqdm
 RUN pip install requests
 RUN pip install pydantic
 RUN pip install python-dotenv
+RUN pip install node2vev

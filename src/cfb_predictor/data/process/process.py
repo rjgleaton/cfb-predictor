@@ -127,8 +127,7 @@ def process_and_save_all(
     }
 
     process_funcs = [
-        process_games,
-        process_games_advanced_stats,
+        process_game_stats,
         process_lines,
         process_player_portal,
         process_player_returning,
