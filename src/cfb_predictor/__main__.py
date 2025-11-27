@@ -1,6 +1,6 @@
 import logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING,
     format="%(asctime)s  [%(levelname)s]: %(message)s",
     handlers=[logging.StreamHandler()]
 )
@@ -19,6 +19,8 @@ def main():
     args = parser.parse_args()
 
     if args.verbose:
+        logger.setLevel(logging.INFO)
+    if args.debug:
         logger.setLevel(logging.DEBUG)
 
     if hasattr(args, "func"):

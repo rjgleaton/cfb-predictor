@@ -36,6 +36,7 @@ def initialize_parsers() -> Tuple[argparse.ArgumentParser, argparse._SubParsersA
     # Create parent parser for shared arguments
     parent_parser = argparse.ArgumentParser(add_help=False)
     parent_parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
+    parent_parser.add_argument("-vv", "--debug", action="store_true", help="Enable debug logging")
 
     parser = argparse.ArgumentParser(
         description="CFB Predictor CLI", 
