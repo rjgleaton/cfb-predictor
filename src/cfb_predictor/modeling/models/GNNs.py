@@ -19,9 +19,15 @@ class GCNEncoder(nn.Module):
     ):
         super().__init__()
         self.conf_embedding = nn.Embedding(num_confs, conf_emb_dim)
-        self.conv1 = pyg_nn.GCNConv(in_dim + conf_emb_dim, hidden_dim)
-        self.conv2 = pyg_nn.GCNConv(hidden_dim, out_dim)
-        self.relu = nn.ReLU()
+        # self.conv1 = pyg_nn.GCNConv(in_dim + conf_emb_dim, hidden_dim)
+        # self.conv2 = pyg_nn.GCNConv(hidden_dim, out_dim)
+        # self.relu = nn.ReLU()
+        self.GCN = pyg_nn.models.GCN(
+            in_channels=in_dim + conf_emb_dim,
+            hidden_channels=hidden_dim,
+            out_channels=out_dim,
+            num_layers=2   
+        )
 
     def forward(
         self, 
@@ -32,11 +38,13 @@ class GCNEncoder(nn.Module):
     ) -> torch.Tensor:
         
         conf_emb = self.conf_embedding(conf_ids)
-        x = torch.cat([x, conf_emb], dim=-1) # [B, N, in_dim + conf_emb_dim]
+        x = torch.cat([x, conf_emb], dim=-1) # [N, in_dim + conf_emb_dim]
 
-        x = self.conv1(x, edge_index, edge_weight)
-        x = self.relu(x)
-        x = self.conv2(x, edge_index, edge_weight)
+        # x = self.conv1(x, edge_index, edge_weight)
+        # x = self.relu(x)
+        # x = self.conv2(x, edge_index, edge_weight)
+        # x = self.GCN(x, edge_index, edge_weight)
+        x = self.GAT(x, edge_index, edge_weight)
         return x
     
 class GCNPredictor(nn.Module):
@@ -57,6 +65,7 @@ class GCNPredictor(nn.Module):
             out_dim=out_dim,
             conf_emb_dim=conf_emb_dim
         )
+        self.layer_norm = nn.LayerNorm(out_dim)
         # We concatenate the two team embeddings for prediction
         self.head = GamePredictionHead(input_dim=out_dim*2, hidden_dim=head_hidden_dim)
 
@@ -76,6 +85,7 @@ class GCNPredictor(nn.Module):
             edge_index=edge_index,
             edge_weight=edge_weight
         )
+        node_embeddings = self.layer_norm(node_embeddings)
         # Concatenate the embeddings of the two teams for prediction
         embeddings = torch.cat([node_embeddings[team_idxs], node_embeddings[opponent_idxs]], dim=-1)
         output = self.head(embeddings)

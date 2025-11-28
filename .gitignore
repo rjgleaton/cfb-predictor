@@ -4,6 +4,9 @@
 # Data files
 *.json
 *.csv
+*.png
+*.jpg
+*.jpeg
 !devcontainer.json
 
 # Python cache files
@@ -14,4 +17,5 @@ __pycache__/
 # Test files and logs
 *testing*
 *.ipynb
+!feature_exploration.ipynb
 *.log
