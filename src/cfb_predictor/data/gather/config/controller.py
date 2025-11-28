@@ -91,7 +91,7 @@ class RequestController:
     def report_info(self):
         url = urljoin(self._base_url, "info/")
         response = requests.get(url, headers=self._headers)
-        logger.info(f"Info - {response.text}") 
+        logger.warning(f"Info - {response.text}") 
 
     def _process_single_request(
             self, 

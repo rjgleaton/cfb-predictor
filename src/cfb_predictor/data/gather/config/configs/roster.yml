@@ -4,21 +4,29 @@ configs:
       year:
         - 2024
         - 2023
+        - 2022
+        - 2021
 
   - path: "talent/"
     params:
       year:
         - 2024
         - 2023
+        - 2022
+        - 2021
 
   - path: "player/returning"
     params:
       year:
         - 2024
         - 2023
+        - 2022
+        - 2021
 
   - path: "player/portal"
     params:
       year:
         - 2024
         - 2023 
+        - 2022
+        - 2021
